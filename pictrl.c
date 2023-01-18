@@ -77,17 +77,7 @@ int main()
     // #else
     //     ssd1306_framebuffer_draw_text(fbp, "ABCDeF", 0, 32, 16, SSD1306_FONT_DEFAULT, 4, &bbox);
     // #endif
-    //     // ssd1306_framebuffer_bitdump(fbp);
-    //     ssd1306_i2c_display_update(oled, fbp);
-    //     sleep(1);
-    //     ssd1306_i2c_run_cmd(oled, SSD1306_I2C_CMD_DISP_INVERTED, 0, 0);
-    //     sleep(1);
-    //     ssd1306_i2c_run_cmd(oled, SSD1306_I2C_CMD_DISP_NORMAL, 0, 0);
-    //     sleep(1);
-    //     ssd1306_i2c_run_cmd(oled, SSD1306_I2C_CMD_DISP_INVERTED, 0, 0);
-    //     sleep(1);
-    //     ssd1306_i2c_run_cmd(oled, SSD1306_I2C_CMD_DISP_NORMAL, 0, 0);
-    // //    ssd1306_framebuffer_clear(fbp);
+
     for (int i = 0; i < 100; i++)
     {
         ssd1306_framebuffer_put_pixel(fbp, rand() % 128, rand() % 64, true);
