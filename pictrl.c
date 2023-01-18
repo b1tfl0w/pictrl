@@ -2,7 +2,7 @@
 #include <linux/input.h>
 #include <fcntl.h>
 #include <stdlib.h>
-
+#include <stdio.h>
 //init input keyboard
 int fd, bytes;
 struct input_event data;
@@ -11,6 +11,7 @@ struct input_event data2;
 
 const char *pEncoder = "/dev/input/event1";
 const char *pButton = "/dev/input/event0";
+char* keyp;
 
 signed int selectorPosY = 4;
 signed int selectorPosX = 0;
@@ -23,13 +24,13 @@ int initInput()
 {
 
     // Open Keyboard
-    fd = open(pEncoder, O_RDONLY | O_NONBLOCK);
+    fd = open(pEncoder, O_RDONLY);
     if (fd == -1)
     {
         printf("ERROR Opening %s\n", pEncoder);
         return -1;
     }
-    fd2 = open(pButton, O_RDONLY | O_NONBLOCK);
+    fd2 = open(pButton, O_RDONLY);
     if (fd2 == -1)
     {
         printf("ERROR Opening %s\n", pButton);
@@ -118,6 +119,8 @@ int main()
     initInput();
     while (1)
     {
+        printf("waiting for key press...\n");
+        fgets(keyp,1,stdin);
         // Read Keyboard Data
         bytes = read(fd, &data, sizeof(data));
         if (bytes > 0)
