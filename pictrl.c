@@ -3,6 +3,8 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
+
 //init input keyboard
 int fd, bytes;
 struct input_event data;
@@ -11,7 +13,7 @@ struct input_event data2;
 
 const char *pEncoder = "/dev/input/event1";
 const char *pButton = "/dev/input/event0";
-char* keyp;
+int keyp;
 
 signed int selectorPosY = 4;
 signed int selectorPosX = 0;
@@ -24,13 +26,13 @@ int initInput()
 {
 
     // Open Keyboard
-    fd = open(pEncoder, O_RDONLY);
+    fd = open(pEncoder, O_RDONLY | O_NONBLOCK);
     if (fd == -1)
     {
         printf("ERROR Opening %s\n", pEncoder);
         return -1;
     }
-    fd2 = open(pButton, O_RDONLY);
+    fd2 = open(pButton, O_RDONLY | O_NONBLOCK);
     if (fd2 == -1)
     {
         printf("ERROR Opening %s\n", pButton);
@@ -119,8 +121,9 @@ int main()
     initInput();
     while (1)
     {
-        printf("waiting for key press...\n");
-        fgets(keyp,1,stdin);
+        // keyp = getchar();
+        // printf("key press: %c\n", ch);
+        usleep(1000);
         // Read Keyboard Data
         bytes = read(fd, &data, sizeof(data));
         if (bytes > 0)
