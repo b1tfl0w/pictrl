@@ -123,7 +123,7 @@ int main()
     {
         // keyp = getchar();
         // printf("key press: %c\n", ch);
-        usleep(1000);
+        usleep(10000);
         // Read Keyboard Data
         bytes = read(fd, &data, sizeof(data));
         if (bytes > 0)
