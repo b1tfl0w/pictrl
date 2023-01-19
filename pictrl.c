@@ -148,8 +148,8 @@ int main()
                     ssd1306_framebuffer_draw_text_extra(fbp, "_______________<", 0, 0, (oled->height / 4 * (selectorPosY+1)) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
                 }
                 if (page == 1){
-                    ssd1306_framebuffer_draw_text_extra(fbp, "Item 5", 0, 0, (oled->height / 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
-                    ssd1306_framebuffer_draw_text_extra(fbp, "Item 6", 0, 0, (oled->height / 4 * 2) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
+                    ssd1306_framebuffer_draw_text_extra(fbp, "Start VNC", 0, 0, (oled->height / 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
+                    ssd1306_framebuffer_draw_text_extra(fbp, "Kill VNC", 0, 0, (oled->height / 4 * 2) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
                     ssd1306_framebuffer_draw_text_extra(fbp, "Item 7", 0, 0, (oled->height / 4 * 3) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
                     ssd1306_framebuffer_draw_text_extra(fbp, "Item 8", 0, 0, (oled->height / 4 * 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
                     ssd1306_framebuffer_draw_text_extra(fbp, "_______________<", 0, 0, (oled->height / 4 * (selectorPosY+1-4)) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
@@ -182,8 +182,8 @@ int main()
                     ssd1306_framebuffer_draw_text_extra(fbp, "_______________<", 0, 0, (oled->height / 4 * (selectorPosY+1)) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
                 }
                 if (page == 1){
-                    ssd1306_framebuffer_draw_text_extra(fbp, "Item 5", 0, 0, (oled->height / 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
-                    ssd1306_framebuffer_draw_text_extra(fbp, "Item 6", 0, 0, (oled->height / 4 * 2) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
+                    ssd1306_framebuffer_draw_text_extra(fbp, "Start VNC", 0, 0, (oled->height / 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
+                    ssd1306_framebuffer_draw_text_extra(fbp, "Kill VNC", 0, 0, (oled->height / 4 * 2) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
                     ssd1306_framebuffer_draw_text_extra(fbp, "Item 7", 0, 0, (oled->height / 4 * 3) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
                     ssd1306_framebuffer_draw_text_extra(fbp, "Item 8", 0, 0, (oled->height / 4 * 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
                     ssd1306_framebuffer_draw_text_extra(fbp, "_______________<", 0, 0, (oled->height / 4 * (selectorPosY+1-4)) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
@@ -223,6 +223,12 @@ int main()
                     ssd1306_i2c_close(oled);
                     oled = NULL;
                     system("sudo systemctl poweroff");
+                }
+                if(selectorPosY == 4){
+                    system("vncserver -localhost no -geometry 1280x720 -SecurityTypes=None :0 --I-KNOW-THIS-IS-INSECURE");
+                }
+                if(selectorPosY == 5){
+                    system("vncserver -kill :0");
                 }
             }
             else
