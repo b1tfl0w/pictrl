@@ -15,7 +15,7 @@ const char *pEncoder = "/dev/input/event1";
 const char *pButton = "/dev/input/event0";
 int keyp;
 
-signed int selectorPosY = 4;
+signed int selectorPosY = 0;
 signed int selectorPosX = 0;
 uint8_t page = 0;
 uint8_t maxPages = 2;
@@ -82,7 +82,7 @@ int main()
     //     ssd1306_framebuffer_draw_text(fbp, "ABCDeF", 0, 32, 16, SSD1306_FONT_DEFAULT, 4, &bbox);
     // #endif
 
-    for (int i = 0; i < 50; i++)
+    for (uint8_t i = 0; i < 50; i++)
     {
         ssd1306_framebuffer_put_pixel(fbp, rand() % 128, rand() % 64, true);
         //        ssd1306_framebuffer_bitdump(fbp);
@@ -97,6 +97,13 @@ int main()
         ssd1306_framebuffer_draw_text_extra(fbp, "Pd kill", 0, 0, (oled->height / 4 * 2) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
         ssd1306_framebuffer_draw_text_extra(fbp, "Restart", 0, 0, (oled->height / 4 * 3) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
         ssd1306_framebuffer_draw_text_extra(fbp, "Power Off", 0, 0, (oled->height / 4 * 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
+    }
+    for (uint8_t i = 0; i < oled->width; ++i)
+    {
+        for (uint8_t j = 0 + ((selectorPosY)%4 * 16); j < ((selectorPosY)%4 * 16)+16; ++j)
+        {
+            ssd1306_framebuffer_invert_pixel(fbp, i, j);
+        }
     }
     //    ssd1306_framebuffer_clear(fbp);
     //ssd1306_i2c_display_clear(oled);
@@ -145,14 +152,14 @@ int main()
                     ssd1306_framebuffer_draw_text_extra(fbp, "Pd kill", 0, 0, (oled->height / 4 * 2) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
                     ssd1306_framebuffer_draw_text_extra(fbp, "Restart", 0, 0, (oled->height / 4 * 3) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
                     ssd1306_framebuffer_draw_text_extra(fbp, "Power Off", 0, 0, (oled->height / 4 * 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
-//                    ssd1306_framebuffer_draw_text_extra(fbp, "_______________<", 0, 0, (oled->height / 4 * (selectorPosY+1)) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
+                    //                    ssd1306_framebuffer_draw_text_extra(fbp, "_______________<", 0, 0, (oled->height / 4 * (selectorPosY+1)) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
                 }
                 if (page == 1){
                     ssd1306_framebuffer_draw_text_extra(fbp, "Start VNC", 0, 0, (oled->height / 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
                     ssd1306_framebuffer_draw_text_extra(fbp, "Kill VNC", 0, 0, (oled->height / 4 * 2) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
                     ssd1306_framebuffer_draw_text_extra(fbp, "Item 7", 0, 0, (oled->height / 4 * 3) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
                     ssd1306_framebuffer_draw_text_extra(fbp, "Item 8", 0, 0, (oled->height / 4 * 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
-//                    ssd1306_framebuffer_draw_text_extra(fbp, "_______________<", 0, 0, (oled->height / 4 * (selectorPosY+1-4)) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
+                    //                    ssd1306_framebuffer_draw_text_extra(fbp, "_______________<", 0, 0, (oled->height / 4 * (selectorPosY+1-4)) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
                 }
                 for (uint8_t i = 0; i < oled->width; ++i)
                 {
@@ -179,14 +186,14 @@ int main()
                     ssd1306_framebuffer_draw_text_extra(fbp, "Pd kill", 0, 0, (oled->height / 4 * 2) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
                     ssd1306_framebuffer_draw_text_extra(fbp, "Restart", 0, 0, (oled->height / 4 * 3) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
                     ssd1306_framebuffer_draw_text_extra(fbp, "Power Off", 0, 0, (oled->height / 4 * 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
-//                    ssd1306_framebuffer_draw_text_extra(fbp, "_______________<", 0, 0, (oled->height / 4 * (selectorPosY+1)) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
+                    //                    ssd1306_framebuffer_draw_text_extra(fbp, "_______________<", 0, 0, (oled->height / 4 * (selectorPosY+1)) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
                 }
                 if (page == 1){
                     ssd1306_framebuffer_draw_text_extra(fbp, "Start VNC", 0, 0, (oled->height / 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
                     ssd1306_framebuffer_draw_text_extra(fbp, "Kill VNC", 0, 0, (oled->height / 4 * 2) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
                     ssd1306_framebuffer_draw_text_extra(fbp, "Item 7", 0, 0, (oled->height / 4 * 3) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
                     ssd1306_framebuffer_draw_text_extra(fbp, "Item 8", 0, 0, (oled->height / 4 * 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
-//                    ssd1306_framebuffer_draw_text_extra(fbp, "_______________<", 0, 0, (oled->height / 4 * (selectorPosY+1-4)) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
+                    //                    ssd1306_framebuffer_draw_text_extra(fbp, "_______________<", 0, 0, (oled->height / 4 * (selectorPosY+1-4)) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
                 }
                 for (uint8_t i = 0; i < oled->width; ++i)
                 {
