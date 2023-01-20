@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
+#include "pi-logo.h"
 
 //init input keyboard
 int fd, bytes;
@@ -59,35 +60,18 @@ int main()
     }
     ssd1306_framebuffer_t *fbp = ssd1306_framebuffer_create(oled->width, oled->height, oled->err);
     ssd1306_i2c_display_clear(oled);
-    //    for (uint8_t i = oled->height - 1; i < oled->height; ++i)
-    //    {
-    //        for (uint8_t j = 0; j < oled->width; ++j)
-    //        {
-    //            ssd1306_framebuffer_put_pixel(fbp, j, i, true);
-    //        }
-    //    }
-    // ssd1306_framebuffer_hexdump(fbp);
     ssd1306_i2c_display_update(oled, fbp);
-    // ssd1306_framebuffer_bitdump(fbp);
-    // sleep(1);
     ssd1306_framebuffer_box_t bbox;
     ssd1306_graphics_options_t opts[1];
     opts[0].type = SSD1306_OPT_FONT_FILE;
     //    opts[0].value.font_file = "/home/pi/.fonts/petme/PetMe.ttf";
     opts[0].value.font_file = "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf";
-
-    // #ifdef LIBSSD1306_HAVE_UNISTR_H
-    //     ssd1306_framebuffer_draw_text(fbp, "sasha", 0, 5, 40, SSD1306_FONT_DEFAULT, 10, &bbox);
-    // #else
-    //     ssd1306_framebuffer_draw_text(fbp, "ABCDeF", 0, 32, 16, SSD1306_FONT_DEFAULT, 4, &bbox);
-    // #endif
-
-//    for (uint8_t i = 0; i < 50; i++)
-//    {
-//        ssd1306_framebuffer_put_pixel(fbp, rand() % 128, rand() % 64, true);
-//        //        ssd1306_framebuffer_bitdump(fbp);
-//        ssd1306_i2c_display_update(oled, fbp);
-//    }
+    // for (uint8_t i = 0; i < 50; i++)
+    // {
+    //     ssd1306_framebuffer_put_pixel(fbp, rand() % 128, rand() % 64, true);
+    //     //        ssd1306_framebuffer_bitdump(fbp);
+    //     ssd1306_i2c_display_update(oled, fbp);
+    // }
 
     // splash image
     for (uint8_t i = 0; i < oled->width; ++i)
