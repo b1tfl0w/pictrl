@@ -82,15 +82,26 @@ int main()
     //     ssd1306_framebuffer_draw_text(fbp, "ABCDeF", 0, 32, 16, SSD1306_FONT_DEFAULT, 4, &bbox);
     // #endif
 
-    for (uint8_t i = 0; i < 50; i++)
+//    for (uint8_t i = 0; i < 50; i++)
+//    {
+//        ssd1306_framebuffer_put_pixel(fbp, rand() % 128, rand() % 64, true);
+//        //        ssd1306_framebuffer_bitdump(fbp);
+//        ssd1306_i2c_display_update(oled, fbp);
+//    }
+
+    // splash image
+    for (uint8_t i = 0; i < oled->width; ++i)
     {
-        ssd1306_framebuffer_put_pixel(fbp, rand() % 128, rand() % 64, true);
-        //        ssd1306_framebuffer_bitdump(fbp);
-        ssd1306_i2c_display_update(oled, fbp);
+        for (uint8_t j = 0; j < oled->height; ++j)
+        {
+            ssd1306_framebuffer_put_pixel(fbp, i, j, true);
+        }
     }
+
     //     ssd1306_framebuffer_draw_text(fbp, "SASHA", 0, 5, 40, SSD1306_FONT_DEFAULT, 10, &bbox);
     //     // ssd1306_framebuffer_bitdump(fbp);
-    //     ssd1306_i2c_display_update(oled, fbp);
+    ssd1306_i2c_display_update(oled, fbp);
+    sleep(1);
     ssd1306_framebuffer_clear(fbp);
     if (page == 0){
         ssd1306_framebuffer_draw_text_extra(fbp, "Pd Patch", 0, 0, (oled->height / 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
