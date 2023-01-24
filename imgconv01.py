@@ -12,10 +12,12 @@ data = [ASCII_BITS[bool(val)] for val in img.getdata()]
 # Convert that to 2D list (list of character lists)
 data = [data[offset: offset+width] for offset in range(0, width*height, width)]
 
-with open(f'{imagepath.stem}.pbm', 'w') as file:
-    file.write('P1\n')
-    file.write(f'# Conversion of {imagepath} to PBM format\n')
-    file.write(f'{width} {height}\n')
+with open(f'{imagepath.stem}.h', 'w') as file:
+    file.write('#include <stdint.h>\n')
+    file.write(f'// Conversion of {imagepath} to Header\n')
+    file.write(f'uint8_t pixels[] = ')
     for row in data:
-        file.write(' '.join(row) + '\n')
+        file.write(','.join(row))
+        file.write(',')
         print('ok')
+    file.write(f';\n')

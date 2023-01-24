@@ -21,6 +21,8 @@ signed int selectorPosX = 0;
 uint8_t page = 0;
 uint8_t maxPages = 2;
 
+char output[] = "888888888888888";
+char cmd7[] = "hostname -I";
 char* date; //e poi?
 
 int initInput()
@@ -39,6 +41,27 @@ int initInput()
         printf("ERROR Opening %s\n", pButton);
         return -1;
     }
+    return 0;
+}
+
+int runCmd(char * command)
+{
+
+    FILE *fp;
+
+    // Open the command for reading. 
+    fp = popen("hostname -I", "r");
+    if (fp == NULL) {
+        printf("Failed to run command\n" );
+        exit(1);
+    }
+    // Read the output a line at a time - output it. 
+    fgets(output, sizeof(output), fp);
+        printf("output %s\n", output);
+
+    // close 
+    pclose(fp);
+
     return 0;
 }
 
@@ -74,20 +97,21 @@ int main()
     // }
 
     // splash image
-    uint8_t pixNum = 0;
-    for (uint8_t i = 0; i < oled->width; ++i)
+    unsigned int pixNum = 0;
+    for (uint8_t i = 0; i < oled->height; ++i)
     {
-        for (uint8_t j = 0; j < oled->height; ++j)
+        for (uint8_t j = 0; j < oled->width; ++j)
         {
+            ssd1306_framebuffer_put_pixel(fbp, j, i, pixels[pixNum]);
             pixNum++;
-            ssd1306_framebuffer_put_pixel(fbp, i, j, header_data[pixNum]);
+            // printf("pix %d %d\n", pixNum, pixels[pixNum]);
         }
     }
 
     //     ssd1306_framebuffer_draw_text(fbp, "SASHA", 0, 5, 40, SSD1306_FONT_DEFAULT, 10, &bbox);
     //     // ssd1306_framebuffer_bitdump(fbp);
     ssd1306_i2c_display_update(oled, fbp);
-    sleep(3);
+    sleep(5);
     ssd1306_framebuffer_clear(fbp);
     if (page == 0){
         ssd1306_framebuffer_draw_text_extra(fbp, "Pd Patch", 0, 0, (oled->height / 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
@@ -102,24 +126,6 @@ int main()
             ssd1306_framebuffer_invert_pixel(fbp, i, j);
         }
     }
-    //    ssd1306_framebuffer_clear(fbp);
-    //ssd1306_i2c_display_clear(oled);
-
-    // for (int i = 0; i < 20; i++)
-    // {
-    //     ssd1306_framebuffer_draw_line(fbp, rand() % 128, rand() % 64, rand() % 128, rand() % 64, true);
-    //     ssd1306_i2c_display_update(oled, fbp);
-    // }
-    // for (int i = 0; i < 3; i++)
-    // {
-    //     ssd1306_i2c_run_cmd(oled, SSD1306_I2C_CMD_DISP_INVERTED, 0, 0);
-    //     sleep(1);
-    //     ssd1306_i2c_run_cmd(oled, SSD1306_I2C_CMD_DISP_NORMAL, 0, 0);
-    //     sleep(1);
-    // }
-
-    // ssd1306_i2c_display_clear(oled);
-    //    ssd1306_framebuffer_bitdump(fbp);
     ssd1306_i2c_display_update(oled, fbp);
     // ssd1306_i2c_run_cmd(oled, SSD1306_I2C_CMD_POWER_OFF, 0, 0);
     initInput();
@@ -154,7 +160,7 @@ int main()
                 if (page == 1){
                     ssd1306_framebuffer_draw_text_extra(fbp, "Start VNC", 0, 0, (oled->height / 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
                     ssd1306_framebuffer_draw_text_extra(fbp, "Kill VNC", 0, 0, (oled->height / 4 * 2) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
-                    ssd1306_framebuffer_draw_text_extra(fbp, "Item 7", 0, 0, (oled->height / 4 * 3) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
+                    ssd1306_framebuffer_draw_text_extra(fbp, "Show IP", 0, 0, (oled->height / 4 * 3) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
                     ssd1306_framebuffer_draw_text_extra(fbp, "Item 8", 0, 0, (oled->height / 4 * 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
                     //                    ssd1306_framebuffer_draw_text_extra(fbp, "_______________<", 0, 0, (oled->height / 4 * (selectorPosY+1-4)) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
                 }
@@ -188,7 +194,7 @@ int main()
                 if (page == 1){
                     ssd1306_framebuffer_draw_text_extra(fbp, "Start VNC", 0, 0, (oled->height / 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
                     ssd1306_framebuffer_draw_text_extra(fbp, "Kill VNC", 0, 0, (oled->height / 4 * 2) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
-                    ssd1306_framebuffer_draw_text_extra(fbp, "Item 7", 0, 0, (oled->height / 4 * 3) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
+                    ssd1306_framebuffer_draw_text_extra(fbp, "Show IP", 0, 0, (oled->height / 4 * 3) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
                     ssd1306_framebuffer_draw_text_extra(fbp, "Item 8", 0, 0, (oled->height / 4 * 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
                     //                    ssd1306_framebuffer_draw_text_extra(fbp, "_______________<", 0, 0, (oled->height / 4 * (selectorPosY+1-4)) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
                 }
@@ -234,7 +240,14 @@ int main()
                 if(selectorPosY == 5){
                     system("vncserver -kill :0");
                 }
-            }
+                 if(selectorPosY == 6){
+                     runCmd(cmd7);
+                     ssd1306_framebuffer_clear(fbp);
+                     ssd1306_framebuffer_draw_text_extra(fbp, output, 0, 0, (oled->height / 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
+                     ssd1306_i2c_display_update(oled, fbp);
+                     sleep(3);
+                }
+           }
             else
             {
                 // ssd1306_i2c_run_cmd(oled, SSD1306_I2C_CMD_DISP_NORMAL, 0, 0);
