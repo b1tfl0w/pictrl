@@ -255,10 +255,22 @@ int main()
                     system("sudo systemctl poweroff");
                 }
                 if(selectorPosY == 4){
+                    ssd1306_framebuffer_clear(fbp);
+                    ssd1306_framebuffer_draw_text_extra(fbp, "Wait...", 0, 0, (oled->height / 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
+                    ssd1306_i2c_display_update(oled, fbp);
                     system("vncserver -localhost no -geometry 1280x600 -SecurityTypes=None :0 --I-KNOW-THIS-IS-INSECURE");
-                }
+                    ssd1306_framebuffer_clear(fbp);
+                    ssd1306_framebuffer_draw_text_extra(fbp, "VNC Started", 0, 0, (oled->height / 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
+                    ssd1306_i2c_display_update(oled, fbp);
+               }
                 if(selectorPosY == 5){
+                    ssd1306_framebuffer_clear(fbp);
+                    ssd1306_framebuffer_draw_text_extra(fbp, "Wait...", 0, 0, (oled->height / 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
+                    ssd1306_i2c_display_update(oled, fbp);
                     system("vncserver -kill :0");
+                    ssd1306_framebuffer_clear(fbp);
+                    ssd1306_framebuffer_draw_text_extra(fbp, "VNC Killed", 0, 0, (oled->height / 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
+                    ssd1306_i2c_display_update(oled, fbp);
                 }
                 if(selectorPosY == 6){
                     runCmd(cmd7);
