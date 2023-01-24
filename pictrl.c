@@ -50,14 +50,14 @@ int runCmd(char * command)
     FILE *fp;
 
     // Open the command for reading. 
-    fp = popen("hostname -I", "r");
+    fp = popen(command, "r");
     if (fp == NULL) {
         printf("Failed to run command\n" );
         exit(1);
     }
     // Read the output a line at a time - output it. 
     fgets(output, sizeof(output), fp);
-    printf("output %s\n", output);
+    // printf("output %s\n", output);
 
     // close 
     pclose(fp);
@@ -107,6 +107,7 @@ int main()
             // printf("pix %d %d\n", pixNum, pixels[pixNum]);
         }
     }
+    pixNum = 0;
 
     //     ssd1306_framebuffer_draw_text(fbp, "SASHA", 0, 5, 40, SSD1306_FONT_DEFAULT, 10, &bbox);
     //     // ssd1306_framebuffer_bitdump(fbp);
@@ -224,7 +225,7 @@ int main()
                     ssd1306_framebuffer_clear(fbp);
                     ssd1306_framebuffer_draw_text_extra(fbp, "Program Started", 0, 0, (oled->height / 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
                     ssd1306_i2c_display_update(oled, fbp);
-               }
+                }
                 if(selectorPosY == 1){
                     ssd1306_framebuffer_clear(fbp);
                     ssd1306_framebuffer_draw_text_extra(fbp, "Wait...", 0, 0, (oled->height / 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
@@ -234,7 +235,7 @@ int main()
                     ssd1306_framebuffer_draw_text_extra(fbp, "Program Killed", 0, 0, (oled->height / 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
                     ssd1306_i2c_display_update(oled, fbp);
                 }
-               if(selectorPosY == 2){
+                if(selectorPosY == 2){
                     ssd1306_framebuffer_clear(fbp);
                     ssd1306_framebuffer_draw_text_extra(fbp, "Restarting...", 0, 0, (oled->height / 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
                     ssd1306_i2c_display_update(oled, fbp);
@@ -246,7 +247,17 @@ int main()
                 }
                 if(selectorPosY == 3){
                     ssd1306_framebuffer_clear(fbp);
-                    ssd1306_framebuffer_draw_text_extra(fbp, "Poweroff", 0, 0, (oled->height / 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
+                    // splash image
+                    unsigned int pixNum = 0;
+                    for (uint8_t i = 0; i < oled->height; ++i)
+                    {
+                        for (uint8_t j = 0; j < oled->width; ++j)
+                        {
+                            ssd1306_framebuffer_put_pixel(fbp, j, i, pixels[pixNum]);
+                            pixNum++;
+                            // printf("pix %d %d\n", pixNum, pixels[pixNum]);
+                        }
+                    }
                     ssd1306_i2c_display_update(oled, fbp);
                     ssd1306_framebuffer_destroy(fbp);
                     fbp = NULL;
@@ -262,7 +273,7 @@ int main()
                     ssd1306_framebuffer_clear(fbp);
                     ssd1306_framebuffer_draw_text_extra(fbp, "VNC Started", 0, 0, (oled->height / 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
                     ssd1306_i2c_display_update(oled, fbp);
-               }
+                }
                 if(selectorPosY == 5){
                     ssd1306_framebuffer_clear(fbp);
                     ssd1306_framebuffer_draw_text_extra(fbp, "Wait...", 0, 0, (oled->height / 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
