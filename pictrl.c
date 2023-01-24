@@ -112,7 +112,7 @@ int main()
     //     ssd1306_framebuffer_draw_text(fbp, "SASHA", 0, 5, 40, SSD1306_FONT_DEFAULT, 10, &bbox);
     //     // ssd1306_framebuffer_bitdump(fbp);
     ssd1306_i2c_display_update(oled, fbp);
-    sleep(5);
+    sleep(3);
     ssd1306_framebuffer_clear(fbp);
     if (page == 0){
         ssd1306_framebuffer_draw_text_extra(fbp, "Pd Patch", 0, 0, (oled->height / 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
