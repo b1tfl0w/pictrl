@@ -57,7 +57,7 @@ int runCmd(char * command)
     }
     // Read the output a line at a time - output it. 
     fgets(output, sizeof(output), fp);
-        printf("output %s\n", output);
+    printf("output %s\n", output);
 
     // close 
     pclose(fp);
@@ -216,10 +216,28 @@ int main()
             if (data2.value == 1)
             {
                 printf("Button press\n");
-                if(selectorPosY == 0) system("pd -nogui -open ~/Documents/Pd/weivtest_theremin.pd &");
-                if(selectorPosY == 1) system("pkill pd");
-                if(selectorPosY == 2){
+                if(selectorPosY == 0){
                     ssd1306_framebuffer_clear(fbp);
+                    ssd1306_framebuffer_draw_text_extra(fbp, "Wait...", 0, 0, (oled->height / 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
+                    ssd1306_i2c_display_update(oled, fbp);
+                    system("pd -nogui -open ~/Documents/Pd/weivtest_theremin.pd &");
+                    ssd1306_framebuffer_clear(fbp);
+                    ssd1306_framebuffer_draw_text_extra(fbp, "Program Started", 0, 0, (oled->height / 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
+                    ssd1306_i2c_display_update(oled, fbp);
+               }
+                if(selectorPosY == 1){
+                    ssd1306_framebuffer_clear(fbp);
+                    ssd1306_framebuffer_draw_text_extra(fbp, "Wait...", 0, 0, (oled->height / 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
+                    ssd1306_i2c_display_update(oled, fbp);
+                    system("pkill pd");
+                    ssd1306_framebuffer_clear(fbp);
+                    ssd1306_framebuffer_draw_text_extra(fbp, "Program Killed", 0, 0, (oled->height / 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
+                    ssd1306_i2c_display_update(oled, fbp);
+                }
+               if(selectorPosY == 2){
+                    ssd1306_framebuffer_clear(fbp);
+                    ssd1306_framebuffer_draw_text_extra(fbp, "Restarting...", 0, 0, (oled->height / 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
+                    ssd1306_i2c_display_update(oled, fbp);
                     ssd1306_framebuffer_destroy(fbp);
                     fbp = NULL;
                     ssd1306_i2c_close(oled);
@@ -228,6 +246,8 @@ int main()
                 }
                 if(selectorPosY == 3){
                     ssd1306_framebuffer_clear(fbp);
+                    ssd1306_framebuffer_draw_text_extra(fbp, "Poweroff", 0, 0, (oled->height / 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
+                    ssd1306_i2c_display_update(oled, fbp);
                     ssd1306_framebuffer_destroy(fbp);
                     fbp = NULL;
                     ssd1306_i2c_close(oled);
@@ -235,19 +255,19 @@ int main()
                     system("sudo systemctl poweroff");
                 }
                 if(selectorPosY == 4){
-                    system("vncserver -localhost no -geometry 1280x720 -SecurityTypes=None :0 --I-KNOW-THIS-IS-INSECURE");
+                    system("vncserver -localhost no -geometry 1280x600 -SecurityTypes=None :0 --I-KNOW-THIS-IS-INSECURE");
                 }
                 if(selectorPosY == 5){
                     system("vncserver -kill :0");
                 }
-                 if(selectorPosY == 6){
-                     runCmd(cmd7);
-                     ssd1306_framebuffer_clear(fbp);
-                     ssd1306_framebuffer_draw_text_extra(fbp, output, 0, 0, (oled->height / 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
-                     ssd1306_i2c_display_update(oled, fbp);
-                     sleep(3);
+                if(selectorPosY == 6){
+                    runCmd(cmd7);
+                    ssd1306_framebuffer_clear(fbp);
+                    ssd1306_framebuffer_draw_text_extra(fbp, output, 0, 0, (oled->height / 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
+                    ssd1306_i2c_display_update(oled, fbp);
+                    // sleep(3);
                 }
-           }
+            }
             else
             {
                 // ssd1306_i2c_run_cmd(oled, SSD1306_I2C_CMD_DISP_NORMAL, 0, 0);
