@@ -24,7 +24,7 @@ uint8_t page = 0;
 uint8_t maxPages = 2;
 
 char output[] = "888888888888888";
-char cmd7[] = "hostname -I";
+char cmdHostname[] = "hostname -I";
 char* date; //e poi?
 
 int initInput()
@@ -286,7 +286,7 @@ int main()
                     ssd1306_i2c_display_update(oled, fbp);
                 }
                 if(selectorPosY == 6){
-                    runCmd(cmd7);
+                    runCmd(cmdHostname);
                     ssd1306_framebuffer_clear(fbp);
                     ssd1306_framebuffer_draw_text_extra(fbp, output, 0, 0, (oled->height / 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
                     ssd1306_i2c_display_update(oled, fbp);
