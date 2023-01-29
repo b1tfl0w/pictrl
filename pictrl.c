@@ -12,8 +12,10 @@ struct input_event data;
 int fd2, bytes2;
 struct input_event data2;
 
-const char *pEncoder = "/dev/input/event1";
-const char *pButton = "/dev/input/event0";
+//const char *pEncoder = "/dev/input/event1";
+//const char *pButton = "/dev/input/event0";
+const char *pEncoder = "/dev/input/by-path/platform-rotary@17-event";
+const char *pButton = "/dev/input/by-path/platform-button@16-event";
 int keyp;
 
 signed int selectorPosY = 0;
