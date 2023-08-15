@@ -161,8 +161,8 @@ int main()
                     //                    ssd1306_framebuffer_draw_text_extra(fbp, "_______________<", 0, 0, (oled->height / 4 * (selectorPosY+1)) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
                 }
                 if (page == 1){
-                    ssd1306_framebuffer_draw_text_extra(fbp, "Start VNC", 0, 0, (oled->height / 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
-                    ssd1306_framebuffer_draw_text_extra(fbp, "Kill VNC", 0, 0, (oled->height / 4 * 2) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
+                    ssd1306_framebuffer_draw_text_extra(fbp, "Start Rec", 0, 0, (oled->height / 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
+                    ssd1306_framebuffer_draw_text_extra(fbp, "Stop Rec", 0, 0, (oled->height / 4 * 2) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
                     ssd1306_framebuffer_draw_text_extra(fbp, "Show IP", 0, 0, (oled->height / 4 * 3) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
                     ssd1306_framebuffer_draw_text_extra(fbp, "Item 8", 0, 0, (oled->height / 4 * 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
                     //                    ssd1306_framebuffer_draw_text_extra(fbp, "_______________<", 0, 0, (oled->height / 4 * (selectorPosY+1-4)) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
@@ -195,8 +195,8 @@ int main()
                     //                    ssd1306_framebuffer_draw_text_extra(fbp, "_______________<", 0, 0, (oled->height / 4 * (selectorPosY+1)) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
                 }
                 if (page == 1){
-                    ssd1306_framebuffer_draw_text_extra(fbp, "Start VNC", 0, 0, (oled->height / 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
-                    ssd1306_framebuffer_draw_text_extra(fbp, "Kill VNC", 0, 0, (oled->height / 4 * 2) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
+                    ssd1306_framebuffer_draw_text_extra(fbp, "Start Rec", 0, 0, (oled->height / 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
+                    ssd1306_framebuffer_draw_text_extra(fbp, "Stop Rec", 0, 0, (oled->height / 4 * 2) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
                     ssd1306_framebuffer_draw_text_extra(fbp, "Show IP", 0, 0, (oled->height / 4 * 3) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
                     ssd1306_framebuffer_draw_text_extra(fbp, "Item 8", 0, 0, (oled->height / 4 * 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
                     //                    ssd1306_framebuffer_draw_text_extra(fbp, "_______________<", 0, 0, (oled->height / 4 * (selectorPosY+1-4)) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
@@ -267,22 +267,40 @@ int main()
                     oled = NULL;
                     system("sudo systemctl poweroff");
                 }
-                if(selectorPosY == 4){
+//                if(selectorPosY == 4){
+//                    ssd1306_framebuffer_clear(fbp);
+//                    ssd1306_framebuffer_draw_text_extra(fbp, "Wait...", 0, 0, (oled->height / 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
+//                    ssd1306_i2c_display_update(oled, fbp);
+//                    system("vncserver -localhost no -geometry 1280x600 -SecurityTypes=None :0 --I-KNOW-THIS-IS-INSECURE");
+//                    ssd1306_framebuffer_clear(fbp);
+//                    ssd1306_framebuffer_draw_text_extra(fbp, "VNC Started", 0, 0, (oled->height / 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
+//                    ssd1306_i2c_display_update(oled, fbp);
+//                }
+//                if(selectorPosY == 5){
+//                    ssd1306_framebuffer_clear(fbp);
+//                    ssd1306_framebuffer_draw_text_extra(fbp, "Wait...", 0, 0, (oled->height / 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
+//                    ssd1306_i2c_display_update(oled, fbp);
+//                    system("vncserver -kill :0");
+//                    ssd1306_framebuffer_clear(fbp);
+//                    ssd1306_framebuffer_draw_text_extra(fbp, "VNC Killed", 0, 0, (oled->height / 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
+//                    ssd1306_i2c_display_update(oled, fbp);
+//                }
+                  if(selectorPosY == 4){
                     ssd1306_framebuffer_clear(fbp);
                     ssd1306_framebuffer_draw_text_extra(fbp, "Wait...", 0, 0, (oled->height / 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
                     ssd1306_i2c_display_update(oled, fbp);
-                    system("vncserver -localhost no -geometry 1280x600 -SecurityTypes=None :0 --I-KNOW-THIS-IS-INSECURE");
+                    system("/home/pi/rec.sh &");
                     ssd1306_framebuffer_clear(fbp);
-                    ssd1306_framebuffer_draw_text_extra(fbp, "VNC Started", 0, 0, (oled->height / 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
+                    ssd1306_framebuffer_draw_text_extra(fbp, "Recording..", 0, 0, (oled->height / 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
                     ssd1306_i2c_display_update(oled, fbp);
                 }
-                if(selectorPosY == 5){
+                  if(selectorPosY == 5){
                     ssd1306_framebuffer_clear(fbp);
                     ssd1306_framebuffer_draw_text_extra(fbp, "Wait...", 0, 0, (oled->height / 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
                     ssd1306_i2c_display_update(oled, fbp);
-                    system("vncserver -kill :0");
+                    system("pkill -2 libcamera-vid");
                     ssd1306_framebuffer_clear(fbp);
-                    ssd1306_framebuffer_draw_text_extra(fbp, "VNC Killed", 0, 0, (oled->height / 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
+                    ssd1306_framebuffer_draw_text_extra(fbp, "Rec Stopped.", 0, 0, (oled->height / 4) - 4, SSD1306_FONT_CUSTOM, 3, opts, 1, &bbox);
                     ssd1306_i2c_display_update(oled, fbp);
                 }
                 if(selectorPosY == 6){
@@ -292,7 +310,7 @@ int main()
                     ssd1306_i2c_display_update(oled, fbp);
                     // sleep(3);
                 }
-            }
+           }
             else
             {
                 // ssd1306_i2c_run_cmd(oled, SSD1306_I2C_CMD_DISP_NORMAL, 0, 0);
