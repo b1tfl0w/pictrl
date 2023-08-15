@@ -1,0 +1,3 @@
+[submodule "libssd1306"]
+	path = libssd1306
+	url = https://github.com/stealthylabs/libssd1306
