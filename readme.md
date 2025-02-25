@@ -24,3 +24,7 @@ dtoverlay=gpio-key,gpio=22,keycode=28,label="ENTER"
 ToDo:
 Populate menu items from config file instead of hardcoding them.
 
+
+
+https://github.com/user-attachments/assets/709a928d-059a-4047-957b-db5cd4790c3c
+
