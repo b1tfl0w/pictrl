@@ -5,11 +5,15 @@ https://github.com/stealthylabs/libssd1306
 
 ky-040 instructions:
 
-CLK -> GPIO23
-DT -> GPIO24
-SW -> GPIO22
-+ -> 3V3
-GND -> GND
+"CLK" -> GPIO23
+
+"DT" -> GPIO24
+
+"SW" -> GPIO22
+
+"+" -> 3V3
+
+"GND" -> GND
 
 add these lines in /boot/config.txt and reboot.
 
